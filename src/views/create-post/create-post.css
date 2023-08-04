@@ -1,0 +1,156 @@
+.btn-add {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 50px;
+    border-radius: 10px;
+    border: none;
+    background-color: transparent;
+    position: relative;
+  }
+  
+  .btn-add::after {
+    content: '';
+    width: fit-content;
+    height: fit-content;
+    position: absolute;
+    font-size: 15px;
+    color: white;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    opacity: 0;
+    visibility: hidden;
+    transition: .2s linear;
+    top: 115%;
+  }
+  
+  .icon-add {
+    width: 30px;
+    height: 30px;
+    transition: .2s linear;
+    color: rgb(102, 255, 0);
+  }
+  
+  
+  .btn-add:hover > .icon-add {
+    transform: scale(1.2);
+  }
+  
+  .btn-add:hover > .icon-add{
+    color: rgb(177, 139, 189);
+  }
+  
+  .icon-add{
+    position: absolute;
+    top: 1px;
+  }
+  .btn-add:hover .icon-add{
+    animation: spin 3s linear infinite;
+  }
+
+  @keyframes spin {
+    0%{
+      transform: rotate(0deg);
+    }
+    100%{
+      transform: rotate(360deg);
+    }
+  }
+  .btn-add:hover::after {
+    visibility: visible;
+    opacity: 1;
+    top: 105%;
+  }
+  
+
+  /* delete */
+  .btn-delete {
+    width: 50px;
+    height: 50px;
+    border: none;
+    border-radius: 50%;
+    background-color: rgb(255, 255, 255);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    position: relative;
+    transition-duration: .3s;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.11);
+  }
+  
+  .svgIcon {
+    fill: rgb(29, 40, 29);
+  }
+  
+  
+  .tooltip {
+    position: absolute;
+    right: -75px;
+    opacity: 0;
+    background-color: rgb(12, 12, 12);
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition-duration: .2s;
+    pointer-events: none;
+    letter-spacing: 0.5px;
+  }
+  
+  .tooltip::before {
+    position: absolute;
+    content: "";
+    width: 10px;
+    height: 10px;
+    background-color: rgb(12, 12, 12);
+    background-size: 1000%;
+    background-position: center;
+    transform: rotate(45deg);
+    left: -5%;
+    transition-duration: .3s;
+  }
+  
+  .btn-delete:hover .tooltip {
+    opacity: 1;
+    transition-duration: .3s;
+  }
+  
+  .btn-delete:hover {
+    background-color: rgb(255, 94, 94);
+    transition-duration: .3s;
+  }
+  
+  .btn-delete:hover .icon2 {
+    border-bottom: 2px solid rgb(235, 235, 235);
+    border-left: 2px solid rgb(235, 235, 235);
+    border-right: 2px solid rgb(235, 235, 235);
+  }
+  
+  .btn-delete:hover .svgIcon {
+    fill: rgb(255, 255, 255);
+    animation: slide-in-top 0.6s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+  }
+  
+  @keyframes slide-in-top {
+    0% {
+      transform: translateY(-10px);
+      opacity: 0;
+    }
+  
+    100% {
+      transform: translateY(0px);
+      opacity: 1;
+    }
+  }
+
+  #floatingInput1::placeholder{
+    color: gray;
+  }
+  #floatingInput1::placeholder::before{
+    content: "*";
+    color: red;
+  }

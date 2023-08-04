@@ -1,0 +1,22 @@
+::placeholder {
+    font-style: italic;
+}
+
+.table{
+    width: 100%;
+}
+.th,
+.td {
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.dongy{
+    float:right
+}
+
+ul{
+    list-style: none;
+}
