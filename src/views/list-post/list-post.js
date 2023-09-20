@@ -36,22 +36,26 @@ export default {
       messageNotFound: "",
       disableTotalButton: false,
       currentPage: "",
-      totalDisplayedPages: 3,
+      totalDisplayedPages: 0,
       search: null,
       currentPageInput: "",
       isLoading: false,
+      pageCheck: 1,
+      listPostSearch: []
     };
   },
   methods: {
     getAllPost() {
       this.isLoading = true;
-      axios.get("post/get-all?size=10&page=" + this.page)
+      axios.get("post/get-all?size=10&page=" + (this.page - 1))
         .then((response) => {
           if (response.data.status == "error") {
             this.message = response.data.message;
           } else if (response.data.status == "success") {
             this.totalPages = response.data.result.totalPages;
+            this.totalDisplayedPages = response.data.result.totalPages;
             this.listPost = response.data.result.content;
+            this.pageCheck = 1;
           } else if (response.data.status == "not-found") {
             this.message = response.data.message;
           }
@@ -67,7 +71,8 @@ export default {
             this.message = response.data.message;
           } else if (response.data.status == "success") {
             this.messageNotFound = "";
-            this.listPost = response.data.result;
+            this.listPostSearch = response.data.result;
+            this.pageCheck = 0;
           } else if (response.data.status == "not-found") {
             this.messageNotFound = response.data.message;
           }
@@ -118,43 +123,59 @@ export default {
           this.isLoading = false;
         });
     },
-
-    changePage(pageNumber) {
-      if (pageNumber > this.page && this.page === this.totalPages) {
-        return;
-      }
-      if (pageNumber < this.page && this.page === 0) {
-        return;
-      }
-      this.page = pageNumber;
-      this.currentPage = pageNumber;
-      this.currentPageInput = this.currentPage.toString();
+    changeCheck(){
+      this.pageCheck === 1
       this.getAllPost();
     },
-    updateCurrentPage() {
-      const parsedValue = parseInt(this.currentPageInput);
-      if (isNaN(parsedValue) || parsedValue <= 0) {
-        this.currentPage = 1;
-        this.currentPageInput = "";
-      } else {
-        this.currentPage = Math.max(Math.min(parsedValue, this.totalPages), 1);
+    changePage(pageNumber) {
+      if(this.pageCheck === 1){
+        if (pageNumber > this.page && this.page === this.totalPages) {
+          return;
+        }
+        if (pageNumber < this.page && this.page === 0) {
+          return;
+        }
+        this.page = pageNumber;
+        this.currentPage = pageNumber;
         this.currentPageInput = this.currentPage.toString();
-        this.page = this.currentPage;
         this.getAllPost();
+      }
+      
+    },
+    updateCurrentPage() {
+      if(this.pageCheck === 1){
+        if(this.pageCheck === 1){
+          const parsedValue = parseInt(this.currentPageInput);
+        if (isNaN(parsedValue) || parsedValue <= 0) {
+          this.currentPage = 1;
+          this.currentPageInput = "";
+        } else {
+          this.currentPage = Math.max(Math.min(parsedValue, this.totalPages), 1);
+          this.currentPageInput = this.currentPage.toString();
+          this.page = this.currentPage;
+          this.getAllPost();
+        }
+      }
+      
       }
     },
   },
   computed: {
     isLastPage() {
-      return this.page === this.totalPages;
+      if(this.pageCheck === 1)
+        return this.page === this.totalPages;
     },
     isFirstPage() {
-      return this.page === 1;
+      if(this.pageCheck === 1)
+        return this.page === 1;
     },
     displayedPages() {
+      if(this.pageCheck === 1){
         const startPage = Math.max(this.currentPage - Math.floor(this.totalDisplayedPages / 2), 1);
         const endPage = Math.min(startPage + this.totalDisplayedPages - 1, this.totalPages);
         return Array.from({ length: endPage - startPage + 1 }, (_, i) => startPage + i);
+      }
+        
       },
   },
   watch: {

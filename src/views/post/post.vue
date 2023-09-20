@@ -16,7 +16,7 @@
           <span class="text-truncate mx-0">
             <icon icon="marker" class="fs-6 text-info me-2 text-wrap"></icon>
             {{ convert(post.content) }}
-            <p class="text-wrap">"Chào mừng bạn đến với ChatGPT! Đây là một ví dụ về đoạn văn bản có chính xác 100 kí tự để kiểm tra độ dài của nó. Hy vọng nội dung này hữu ích cho bạn."</p>
+            <p class="text-wrap"></p>
           </span>
         </div>
       </div>
@@ -42,11 +42,12 @@
           </RouterLink>
         </div>
         <span>
-          <small class="text-truncate" ><i class="far fa-calendar-alt text-primary me-2"></i>Date
-          Line: </small>
+          <small class="text-truncate" ><i class="far fa-calendar-alt text-primary me-2"></i>Ngày hết hạn: </small>
           <small :style="{ 'word-spacing': '20px' }">{{ post.expiredDate }}</small>
-
         </span>
+          <span class="text-danger" v-if="post.checkButton != null">
+            {{ post.checkButton }}
+          </span>
         
       </div>
     </div>

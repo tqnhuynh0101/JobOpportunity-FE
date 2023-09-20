@@ -9,7 +9,7 @@ const toast = useToast();
 export default {
     name: "create-cv",
     mounted() {
-        // this.getData();
+        this.getData();
         this.getAccountLogin();
         this.getBaseSkill();
     },
@@ -59,30 +59,30 @@ export default {
         }
     },
     methods: {
-        // getData() {
-        //     this.isLoading = true;
-        //     axios.get("/cv/get-by-current-user")
-        //         .then((response) => {
-        //             if (response.data.status == "success") {
-        //                 this.cv = response.data.result;
-        //                 this.name = this.cv.name;
-        //                 this.pos = this.cv.pos;
-        //                 this.email = this.cv.email;
-        //                 this.tel = this.cv.tel;
-        //                 this.gender = this.cv.gender;
-        //                 this.age = this.cv.age;
-        //                 this.intro = this.cv.intro;
-        //                 this.education = this.cv.education;
-        //                 this.workExperience = this.cv.workExperience;
-        //                 this.certifications = this.cv.certifications;
-        //                 this.awards = this.cv.awards;
-        //                 this.listSkill = this.cv.skill;
-        //                 this.listInterest = this.cv.interest;
-        //                 this.address = this.cv.address;
-        //                 this.setAvatar(this.cv.avatar);
-        //             } this.isLoading = false;
-        //         })
-        // },
+        getData() {
+            this.isLoading = true;
+            axios.get("/cv/get-by-current-user")
+                .then((response) => {
+                    if (response.data.status == "success") {
+                        this.cv = response.data.result;
+                        this.name = this.cv.name;
+                        this.pos = this.cv.pos;
+                        this.email = this.cv.email;
+                        this.tel = this.cv.tel;
+                        this.gender = this.cv.gender;
+                        this.age = this.cv.age;
+                        this.intro = this.cv.intro;
+                        this.education = this.cv.education;
+                        this.workExperience = this.cv.workExperience;
+                        this.certifications = this.cv.certifications;
+                        this.awards = this.cv.awards;
+                        this.listSkill = this.cv.skill;
+                        this.listInterest = this.cv.interest;
+                        this.address = this.cv.address;
+                        this.setAvatar(this.cv.avatar);
+                    } this.isLoading = false;
+                })
+        },
         setAvatar(avatar) {
             let reader = new FileReader();
             const byteCharacters = atob(avatar);
@@ -319,7 +319,7 @@ export default {
                 "interest": this.listInterest,
                 "address": this.address
             }));
-            axios.post('cv/create', formData, {
+            axios.post('cv/update', formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                 },

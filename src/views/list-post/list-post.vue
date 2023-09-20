@@ -55,7 +55,7 @@
                         </button>
                     </div>
                     <!-- Phân trang -->
-                    <nav aria-label="..." class="d-flex flex-row justify-content-center container-fluid">
+                    <nav aria-label="..." class="d-flex flex-row justify-content-center container-fluid" v-if ="pageCheck === 1">
                         <ul class="pagination page">
                             <li class="page-item link" :class="{ disabled: isFirstPage }">
                                 <a class="page-link" href="#" @click="changePage(page - 1)">Trang Trước</a>
@@ -73,24 +73,26 @@
                             </li>
                         </ul>
                     </nav>
+                    <button class="btn btn-success" @click="changeCheck" style="margin-left: 1120px; margin-top: -10px;" v-if="pageCheck === 0">Quay lại</button>                    
+                    
                     <!-- End phân trang -->
                     <div class="tab-class text-center wow fadeInUp" data-wow-delay="0.3s">
                         <div class="tab-content">
                             <div id="tab-1" class="tab-pane fade show p-0 active">
                                 <!-- //11111111 -->
                                 <h1 v-if="messageNotFound != ''">{{ messageNotFound }} 😢</h1>
-                              <post :listPost="listPost"></post>
-
-
+                              <post :listPost="listPost" v-if ="pageCheck === 1"></post>
+                              <post :listPost="listPostSearch" v-if ="pageCheck === 0"></post>
+                                
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
             <!-- Jobs End -->
-
+            <button class="btn btn-success" @click="changeCheck" style="margin-left: 1250px; margin-top: -60px;" v-if="pageCheck === 0">Quay lại</button>
             <!-- Phân trang -->
-            <nav aria-label="..." class="d-flex flex-row justify-content-center">
+            <nav aria-label="..." class="d-flex flex-row justify-content-center" v-if ="pageCheck === 1">
                 <ul class="pagination page">
                     <li class="page-item link" :class="{ disabled: isFirstPage }">
                         <a class="page-link" href="#" @click="changePage(page - 1)">Trang Trước</a>
@@ -107,7 +109,9 @@
                         <a class="page-link" href="#" @click="changePage(page + 1)">Trang Sau</a>
                     </li>
                 </ul>
+                
             </nav>
+            
             <!-- End phân trang -->
 
             <!-- Back to Top -->

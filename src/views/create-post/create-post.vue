@@ -1,13 +1,16 @@
 <template>
   <div>
 
-    <modal :visible="isVisibleConfirmSave" width="600px" title="XÁC NHẬN LƯU BÀI VIẾT" :cancelButton="{
-      text: 'Trở lại',
-      onclick: closeConfirm,
-    }" :okButton="{
-  text: 'Đồng ý',
-  onclick: create,
-}" zIndex="2000" :closable="false">
+    <modal :visible="isVisibleConfirmSave" width="600px" title="XÁC NHẬN LƯU BÀI VIẾT"
+           :cancelButton="{
+              text: 'Trở lại',
+              onclick: closeConfirm,
+           }"
+           :okButton="{
+              text: 'Đồng ý',
+              onclick: save,
+           }"
+           zIndex="2000" :closable="false">
       <div>
         Bạn có chắc chắn muốn gửi bài viết này không?
       </div>
@@ -178,13 +181,13 @@
                 </div>
                 <div class="col-md-6">
                   <label for="salaryMax">Lương Tối Đa <span style="color: red;">*</span></label>
-                  <input class="form-control" type="text" id="salaryMax" placeholder="Max Salary..."
+                  <input class="form-control" type="text" id = "salaMax" placeholder="Max Salary..."
                     :disabled="salaryCheck" v-model="salaryMax" autocomplete="off">
                   <div class="text-start text-danger" v-show="!salaryCheck" v-html="messageSalaryMax"></div>
                 </div>
                 <div class="col-md-6 pb-4">
                   <label for="salaryMin">Lương Tối Thiểu <span style="color: red;">*</span></label>
-                  <input class="form-control" type="text" id="salaryMin" placeholder="Min Salary..."
+                  <input class="form-control" type="text" id = "salaMin" placeholder="Min Salary..."
                     :disabled="salaryCheck" v-model="salaryMin" autocomplete="off">
                   <div class="text-start text-danger" v-show="!salaryCheck" v-html="messageSalaryMin"></div>
                 </div>
@@ -194,10 +197,10 @@
                     <input type="radio" class="form-check-input" name="optradio7" value="VND" v-model="unit" checked>
                     <label class="form-check-label" for="radio3">VND</label>
                   </div>
-                  <div class="form-check">
+                  <!-- <div class="form-check">
                     <input type="radio" class="form-check-input" name="optradio7" value="USD" v-model="unit" checked>
                     <label class="form-check-label" for="radio3">USD</label>
-                  </div>
+                  </div> -->
                 </div>
                 <!-- =========begin========== -->
 
@@ -228,7 +231,7 @@
                           </td>
                           <td class="d-flex justify-content-center">
                             <button class="btn-delete" @click="deleteSkill(index)">
-                              <icon icon="trash" style="height=1em" class="svgIcon"></icon>     
+                              <icon icon="trash" style="height=1em" class="svgIcon"></icon>
                               <span class="tooltip">Xoá</span>
                             </button>
                           </td>
@@ -259,6 +262,12 @@
                   <input class="form-control" type="email" id="email" placeholder="user1@example.com" v-model="email"
                     autocomplete="off">
                   <div class="text-start text-danger" v-html="messageEmail"></div>
+                </div>
+                <div class="col-md-6 pb-4">
+                  <label for="email">Ngày hết hạn: <span style="color: red;">*</span></label>
+                  <input class="form-control" type="date" id="expiredDate" v-model="expiredDate"
+                    autocomplete="off">
+                  <div class="text-start text-danger" v-html="messageExpiredDate"></div>
                 </div>
               </div>
               <div class="text-center text-danger" v-html="message"></div>

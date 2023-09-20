@@ -1,10 +1,10 @@
 import axios from "../../config/axios";
-// import toast from "bootstrap/js/src/toast";
 import {useToast} from 'vue-toastification';
 const toast = useToast();
 import Loading from 'vue-loading-overlay';
+
 export default {
-    name: "view-cv",
+    name: "cv-detail",
     components: {
         Loading
       },
@@ -15,21 +15,34 @@ export default {
             isLoading: false,
         }
     },
-   
+    props: [
+        'uuid',
+        'previewCv'
+    ],
     mounted() {
-        
+        console.log(this.uuid)
+        if(this.uuid != null) {
+            this.getCv(this.uuid);
+        } else {
             this.getCv()
+        }
+    },
+    beforeRouteEnter(to, from, next) {
+        next(vm => {
+            if (to.params.uuid) {
+                vm.getCv(to.params.uuid);
+            }
+        });
     },
 
     methods: {
-        getCv() {
+        getCv(uuid) {
             this.isLoading = true;
-            axios.get("cv/get-by-current-user").then((response) => {
-                if (response.data.status == "error") {
-                } else if (response.data.status == "not-found") {
-                    toast.error(response.data.message);
-                    this.$router.push({ name: 'CreateCv' })
-                } else if (response.data.status == "success") {
+            axios.get("cv/get-cv-view/"+ uuid)
+            .then((response) => {
+                if(response.data.status == "not-found" || response.data.status== "error") {
+                    toast.error("CV không tồn tại");
+                }else if (response.data.status == "success") {
                     this.cv = response.data.result;
                     this.setAvatar(response.data.result.avatar);
                 }

@@ -5,8 +5,8 @@
       <header class="topbar" data-navbarbg="skin5" style="position: fixed; width: 100%;">
         <nav class="navbar top-navbar navbar-expand-md bg-success">
           <div class="navbar-header" data-logobg="skin6">
-            <a class="navbar-brand" href="dashboard.html">
-              <span class="logo-icon">
+            <a class="navbar-brand" href="/">
+              <span class="logo-text">
                 <img width="100%" style="border-radius: 100%;" src="../assets/admin/img/admin.png" alt="logo" />
               </span>
               <span class="logo-text">
@@ -36,7 +36,7 @@
           <nav class="sidebar-nav">
             <ul id="sidebarnav">
 
-              <li class="sidebar-item pt-2">
+              <li class="sidebar-item pt-2" v-show = "authority === 'ROLE_SEEKER'">
                 <router-link class="sidebar-link waves-effect waves-dark sidebar-link button"
                   to="/management/create-post">
                   <icon icon="circle-plus" class="mx-2 icon-style"></icon>
@@ -49,16 +49,34 @@
                   <span class="hide-menu">Quản Lý Bài Đăng</span>
                 </router-link>
               </li>
-              <li class="sidebar-item">
+              <li class="sidebar-item"  v-show = "authority === 'ROLE_ADMIN'">
                 <router-link to="/management/skill-management" class="sidebar-link waves-effect waves-dark sidebar-link">
                   <icon icon="bars-staggered" class="mx-2"></icon>
-                  <span class="hide-menu">Kĩ Năng Của Bạn</span>
+                  <span class="hide-menu">Danh mục kỹ năng</span>
                 </router-link>
               </li>
-              <li class="sidebar-item">
+              <li class="sidebar-item"  v-show = "authority === 'ROLE_SEEKER'">
+                <router-link to="/management/payment" class="sidebar-link waves-effect waves-dark sidebar-link">
+                  <icon icon="bars-staggered" class="mx-2"></icon>
+                  <span class="hide-menu">Thanh toán</span>
+                </router-link>
+              </li>
+              <li class="sidebar-item" v-show = "authority === 'ROLE_SEEKER'">
                 <router-link to="/management/apply-post" class="sidebar-link waves-effect waves-dark sidebar-link">
                   <icon icon="check-to-slot" class="mx-2"></icon>
                   <span class="hide-menu">Quản Lý Ứng Viên</span>
+                </router-link>
+              </li>
+              <li class="sidebar-item"  v-show = "authority === 'ROLE_ADMIN'">
+                <router-link to="/management/income" class="sidebar-link waves-effect waves-dark sidebar-link">
+                  <icon icon="bars-staggered" class="mx-2"></icon>
+                  <span class="hide-menu">Thống kê thu nhập</span>
+                </router-link>
+              </li>
+              <li class="sidebar-item" v-show = "authority === 'ROLE_ADMIN'">
+                <router-link to="/management/account" class="sidebar-link waves-effect waves-dark sidebar-link">
+                  <icon icon="user" class="mx-2"></icon>
+                  <span class="hide-menu">Quản Lý Tài Khoản</span>
                 </router-link>
               </li>
               <hr>
@@ -68,10 +86,10 @@
                   <span class="hide-menu">Thay Đổi Mật Khẩu</span>
                 </router-link>
               </li>
-              <li class="sidebar-item" style="cursor: pointer;">
+              <li class="sidebar-item" style="cursor: pointer;"  @click="logout()">
                 <nav class="sidebar-link waves-effect waves-dark sidebar-link">
                   <icon icon="arrow-right-from-bracket" class="mx-2"></icon>
-                  <span class="hide-menu" @click="logout()">Đăng Xuất</span>
+                  <span class="hide-menu">Đăng Xuất</span>
                 </nav>
               </li>
             </ul>
@@ -151,6 +169,11 @@ export default {
   },
   mounted() {
   },
+  data(){
+    return{
+      authority: ""
+    }
+  },
   methods: {
     logout() {
       localStorage.clear();
@@ -160,11 +183,12 @@ export default {
     getNameAdmin() {
       let account = JSON.parse(localStorage.getItem('current-account'))
       if (account) {
+        this.authority = account.authority;
         return account.name
       } else {
         return ""
       }
-    }
+    },
   }
 }
 </script>

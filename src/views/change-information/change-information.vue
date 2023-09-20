@@ -12,7 +12,7 @@
                         <div class="card-body">
                             <div class="mb-3">
                                 <label class="form-label">Họ và Tên <span style="color: red;">*</span></label>
-                                <input type="text" class="form-control" readonly v-model="account.name">
+                                <input type="text" class="form-control" v-model="account.name">
                             </div>
                             <div class="mb-3">
                                 <label class="form-label">Tuổi <span style="color: red;">*</span></label>
@@ -58,12 +58,12 @@
                     </div>
                     <div class="card mt-3">
                         <div class="card-body ">
-                            <ul class="list-style-none">
+                            <!-- <ul class="list-style-none">
                                 <li>asdasd</li>
                                 <li>asdasd</li>
                                 <li>asdasd</li>
                                 <li>asdsad</li>
-                            </ul>
+                            </ul> -->
                         </div>
                     </div>
                 </div>

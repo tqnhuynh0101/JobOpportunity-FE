@@ -3,6 +3,8 @@ import headerContentAdmin from "@/components/header-content-admin";
 import { useToast } from 'vue-toastification';
 import { Modal } from 'usemodal-vue3';
 import Loading from 'vue-loading-overlay';
+import postDetail from "@/views/post-details/post-detail.vue";
+
 const toast = useToast();
 
 export default {
@@ -10,10 +12,12 @@ export default {
     components: {
         headerContentAdmin,
         Modal,
-        Loading
+        Loading,
+        postDetail
     },
     mounted() {
         this.getData();
+        this.getAccountLogin();
         this.currentPage = 1;
         this.currentPageInput = this.currentPage.toString();
     },
@@ -32,7 +36,11 @@ export default {
             postApproveId: null,
             postDeleteId: null,
             isLoading: false,
-            currentPageInput: ""
+            currentPageInput: "",
+            account: null,
+            authority:"",
+            isVisibleViewPost: null,
+            isVisibleViewPost: false,
         }
     },
     methods: {
@@ -53,6 +61,9 @@ export default {
                     }
                     this.Loading = false;
                 })
+        },
+        getAccountLogin(){
+            this.account = JSON.parse(localStorage.getItem("current-account"))
         },
         deletePost() {
             if(this.postDeleteId != null){
@@ -124,6 +135,14 @@ export default {
         closeConfirmApprove() {
             this.postApproveId = null
             this.isVisibleConfirmApprove = false;
+        },
+        closeViewPost() {
+            this.isVisibleViewPost = false;
+        },
+      
+        openPostDetail(idView) {
+            this.isVisibleViewPost = true;
+            this.idView = idView;
         },
     },
     computed: {

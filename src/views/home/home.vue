@@ -40,7 +40,40 @@
     <div class="tab-class text-center wow fadeInUp container-xxl" data-wow-delay="0.3s">
       <div class="tab-content">
         <div id="tab-1" class="tab-pane fade show p-0 active">
+          <div class="container1 mb-3 ">
+                        <div class="research">
+                            <input type="email" class="input-find form-control w-100" id="floatingInput1" v-model="search"
+                                placeholder="Công việc muốn ứng tuyển...">
+                        </div>
+                        <div class="all-job mx-2 ">
+                            <v-autocomplete :items="listProvince" v-model="selectedProvince" item-title="fullName"
+                                item-text="fullName" item-value="code" :no-data-text="'Không có dữ liệu'"
+                                label="--Tỉnh/Thành phố--" variant="solo-filled">
+                            </v-autocomplete>
+                        </div>
+                        <div class="all-role mx-2 ">
 
+                            <v-autocomplete :items="listDistrict" v-model="selectedDistrict" item-title="fullName"
+                                item-text="fullName" item-value="code" no-data-text="Không có dữ liệu"
+                                label="--Quận/Huyện--" variant="solo-filled">
+                            </v-autocomplete>
+
+                        </div>
+                        <div class="all-location mx-2">
+                            <v-autocomplete :items="listWard" v-model="selectedWard" item-title="fullName"
+                                item-text="fullName" item-value="code" no-data-text="Không có dữ liệu" label="--Phường/Xã--"
+                                variant="solo-filled">
+                            </v-autocomplete>
+                        </div>
+                        <button type="button" class="btn btn-primary input-find-btn col-md-1"
+                            @click="getAllPostByAddress()"> Search
+                            <svg style="width: 15px; fill: white;" xmlns="http://www.w3.org/2000/svg" height="1em"
+                                viewBox="0 0 512 512">
+                                <path
+                                    d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z" />
+                            </svg>
+                        </button>
+                    </div>
           <post :listPost="listPost"></post>
 
         </div>
@@ -68,14 +101,14 @@
           <div class="col-lg-3 col-md-6">
             <h5 class="text-white mb-4">Thông Tin Liên Hệ</h5>
             <p class="mb-2">
-              <icon icon="location-dot" class="mx-1"></icon> FPT University, Hoa Hai Ward, Ngu Hanh Son District
+              <icon icon="location-dot" class="mx-1"></icon> 97 Man Thiện, Hiệp Phú 
             </p>
             <p class="mb-2">
               <icon icon="phone" class="mx-1"></icon>(+84)9
               345 67890
             </p>
             <p class="mb-2">
-              <icon icon="envelope" class="mx-1"></icon>nhanhttde150039@fpt.edu.vn
+              <icon icon="envelope" class="mx-1"></icon>huynhnqt01@gmail.com.vn
             </p>
             <div class="d-flex pt-2">
               <a class="btn btn-outline-light btn-social" href="">

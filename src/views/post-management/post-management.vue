@@ -1,6 +1,17 @@
 <template>
+  <modal :visible="isVisibleViewPost" width="1300px" title="XEM LẠI BÀI VIẾT" :cancelButton="{
+      text: 'Trở lại',
+      onclick: closeViewPost,
+    }" :okButton="{
+      text: 'Đồng ý',
+      onclick: closeViewPost,
+    }" zIndex="2000" :closable="false">
+      <div style="max-height: 620px ;overflow-y: scroll">
+        <post-detail ref="postDetail" :idView="idView"></post-detail>
+      </div>
+    </modal>
   <div>
-
+    
     <modal :visible="isVisibleConfirmDelete" width="600px" title="XÁC NHẬN " :cancelButton="{
       text: 'Trở lại',
       onclick: closeConfirmDelete,
@@ -37,36 +48,40 @@
       <table class="table table-striped">
         <thead>
           <tr>
-            <th scope="col">Id</th>
+            <th scope="col">STT</th>
             <th scope="col">Công Ty</th>
-            <th scope="col">Nội Dung</th>
+            <th scope="col">Tiêu đề</th>
             <th scope="col">Email</th>
             <th scope="col">Ngày Hết Hạn</th>
             <th scope="col">Người Tạo</th>
             <th scope="col">Thời Gian Tạo</th>
+            <th scope="col">Nội dung</th>
             <th scope="col">Thao Tác</th>
           </tr>
         </thead>
         <tbody style="vertical-align: middle;">
-          <tr v-for="post in listPost" v-bind:key="post.id" :class="{
+          <tr v-for="(post, index) in listPost" v-bind:key="post.id" :class="{
             'red-color': post.isDel === true,
             'blue-color': (post.isDel === false && post.flag === true),
             'black-color': (post.isDel === false && post.flag === false)
           }">
-            <td scope="row">{{ post.id }}</td>
+            <td scope="row">{{ index+ 1 }}</td>
             <td>{{ post.company }}</td>
-            <td>{{ post.content }}</td>
+            <td>{{ post.title }}</td>
             <td>{{ post.email }}</td>
             <td>{{ post.expiredDate }}</td>
             <td>{{ post.createBy }}</td>
             <td>{{ post.createTime }}</td>
+            <td>
+            <nav class="text-post" style="cursor: pointer" @click="openPostDetail(post.id)">Xem Chi Tiết</nav>
+          </td>
             <td class="d-flex">
 
               <button class="btn-delete" v-if="!post.isDel" @click="confirmDetele(post.id)">
                 <icon icon="trash" style="height=1em" class="svgIcon"></icon>
                 <span class="tooltip">Xoá</span>
               </button>
-              <button class="btn-confirm" v-if="post.isDel === false && post.flag === false" type="button" style="margin-left: 15px;"
+              <button class="btn-confirm" v-if="post.isDel === false && post.flag === false && account.authority === 'ROLE_ADMIN'" type="button" style="margin-left: 15px;"
                 @click="confirmApprove(post.id)">
                 <icon icon="fa-solid fa-pen-to-square" style="color: #23be25;"></icon>
               </button>

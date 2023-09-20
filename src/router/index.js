@@ -5,6 +5,7 @@ import User from "@/views/user.vue";
 import Admin from "@/views/admin.vue";
 import UserHome from "@/views/user-home/user-home.vue";
 import CreateCv from "@/views/create-cv/create-cv.vue";
+import UpdateCv from "@/views/update-cv/update-cv.vue";
 import ViewCv from "@/views/view-cv/view-cv.vue";
 import ListPost from "@/views/list-post/list-post.vue";
 import PostDetail from "@/views/post-details/post-detail.vue";
@@ -20,6 +21,11 @@ import Otp from "@/views/otp/otp.vue";
 import NotFound from "@/components/not-found/not-found";
 import MyApply from "@/views/my-apply/my-apply.vue";
 import ChangeInformation from '@/views/change-information/change-information.vue';
+import AccountManagement from '@/views/account-management/account-management.vue';
+import Payment from '@/views/payment/payment.vue';
+import CvDetail from '@/views/cv-detail/cv-detail.vue';
+import Income from '@/views/income/income.vue';
+
 
 const Authority = {
     SEEKER: 'ROLE_SEEKER',
@@ -57,7 +63,7 @@ const router = createRouter({
             meta: {isLogin: false, authorities: [Authority.GUEST]},
         },
         {
-            path: '/otp',
+            path: '/otp/:id',
             name: 'Otp',
             component: Otp,
             meta: {isLogin: false, authorities: [Authority.GUEST]},
@@ -93,6 +99,12 @@ const router = createRouter({
                     meta: {isLogin: true, authorities: [Authority.EMPLOYEE]},
                 },
                 {
+                    path: '/user/update-cv',
+                    name: 'UpdateCv',
+                    component: UpdateCv,
+                    meta: {isLogin: true, authorities: [Authority.EMPLOYEE]},
+                },
+                {
                     path: '/user/view-cv',
                     name: 'ViewCv',
                     component: ViewCv,
@@ -115,6 +127,12 @@ const router = createRouter({
                     name: 'ChangeInformation',
                     component: ChangeInformation,
                     meta: {isLogin: true, authorities: [Authority.EMPLOYEE]},
+                },
+                {
+                    path: '/user/cv-detail/:uuid',
+                    name: 'CvDetail',
+                    component: CvDetail,
+                    meta: {isLogin: true, authorities: [Authority.EMPLOYEE, Authority.SEEKER, Authority.ADMIN]},
                 },
             ]
         },
@@ -153,6 +171,24 @@ const router = createRouter({
                     name: '/ApplyPost',
                     component: ApplyPost,
                     meta: {isLogin: true, authorities: [Authority.SEEKER]},
+                },
+                {
+                    path: '/management/account',
+                    name: '/AccountManagement',
+                    component: AccountManagement,
+                    meta: {isLogin: true, authorities: [Authority.ADMIN]},
+                },
+                {
+                    path: '/management/payment',
+                    name: '/Payment',
+                    component: Payment,
+                    meta: {isLogin: true, authorities: [Authority.SEEKER]},
+                },
+                {
+                    path: '/management/income',
+                    name: '/Income',
+                    component: Income,
+                    meta: {isLogin: true, authorities: [Authority.ADMIN]},
                 }
             ]
         },

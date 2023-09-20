@@ -12,8 +12,19 @@ export default {
     data() {
         return {
           otp: '',
-          accountId :'33'
+          accountId : null
         }
+    },
+    
+    beforeRouteEnter(to, from, next) {
+        next(vm => {
+            if (to.params.id) {
+                vm.accountId = to.params.id;
+            }
+            else {
+                this.$router.push({name: 'ForgetPassword'})
+            }
+        });
     },
     components: {
         Loading
@@ -21,10 +32,9 @@ export default {
     methods: {
         importOtp(){
             this.Loading = true
-            axios.put("account/check-otp",{
-                accountId : this.accountId,
-                otp : this.otp
-            }).then((respone) => {
+            console.log(this.accountId)
+            axios.put("account/check-otp?otp="+this.otp+"&id="+this.accountId)
+            .then((respone) => {
                 if(respone.data.status === "error"){
                     toast.error(respone.data.message)
                 }else if (respone.data.status === "success"){

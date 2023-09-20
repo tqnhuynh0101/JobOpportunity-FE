@@ -9,11 +9,19 @@ export default {
     components: {
         Loading
       },
+    props: ["idView"],
+    mounted() {
+          if (this.idView) {
+              this.getPost(this.idView);
+          }
+    },  
     data() {
         return {
             message: "",
             postDetail: {},
             isLoading: false,
+            uuid: null,
+            isVisibleViewCv: false,
         }
     },
 
@@ -34,7 +42,6 @@ export default {
                         this.message = response.data.message;
                     } else if (response.data.status == "success") {
                         this.postDetail = response.data.result;
-                        this.postDetail.expiredDate = this.convertToDate(this.postDetail.expiredDate)
                         this.postDetail.salaryMin = this.formatCurrency(this.postDetail.salaryMin)
                         this.postDetail.salaryMax = this.formatCurrency(this.postDetail.salaryMax)
                         this.setImage(response.data.result.image)
@@ -54,19 +61,11 @@ export default {
             // decPart = (decPart + '00').substr(0, 2);
             return symbol + intPart;
         },
-        convertToDate(yyyymmdd) {
-            // Tách chuỗi thành các phần tử: năm, tháng, ngày
-            const year = yyyymmdd.slice(0, 4);
-            const month = yyyymmdd.slice(4, 6);
-            const day = yyyymmdd.slice(6, 8);
-
-            // Tạo đối tượng ngày từ các phần tử vừa tách được
-            const date = new Date(`${year}-${month}-${day}`);
-            return [day, month, year].join('-');
+        goBack() {
+            this.$router.back();
         },
         applyPost(){
             this.Loading = true;
-            console.log(this.postDetail.id)
             axios.post("apply-post/create/" + this.postDetail.id)
             .then((response) => {
                 if (response.data.status == "error") {
@@ -95,7 +94,15 @@ export default {
               let imgElement = document.getElementById("avatar");
               imgElement.src = base64data;
             }
-          }
+          },
+          
+        openCv(uuid) {
+            this.isVisibleViewCv = true;
+            this.uuid = uuid;
+        },
+        closeViewCv() {
+            this.isVisibleViewCv = false;
+        }
 
     }
 };

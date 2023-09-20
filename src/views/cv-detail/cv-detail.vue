@@ -7,9 +7,6 @@
             <div class="row h-100 align-items-center justify-content-center">
                 <div class="col-12 col-sm-8 col-md-6 col-lg-5 col-xl-8">
                     <div class="bg-light rounded my-4 mx-3 ">
-                        <router-link to="/user/update-cv"><button class="btn btn-success">Cập nhật
-                                CV</button></router-link>
-                                <router-link to="/user/cv"><button class="btn btn-success" style="margin-left: 8px;">Tạo mới CV</button></router-link>        
                         <div style="box-shadow: 1px 2px 5px 2px #191C24;" class="cv d-flex my-2">
                             <div class="cv-left col-md-4 bg-dark px-2 text-white-50">
                                 <div class="">
@@ -165,5 +162,5 @@
     </div>
 </template>
 
-<script src="./view-cv.js"></script>
+<script src="./cv-detail.js"></script>
 <style src="../../assets/icon.css"></style>

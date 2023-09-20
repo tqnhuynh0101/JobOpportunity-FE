@@ -27,7 +27,7 @@ export default {
                         toast.error(response.data.message);
                     } else if (response.data.status == "success") {
                         toast.success(response.data.message);
-                        this.$router.push({ name: 'Otp' })
+                        this.$router.push({  path: `/otp/${response.data.result}` })
                     }
                     this.isLoading = false;
                 }).catch((error) => {

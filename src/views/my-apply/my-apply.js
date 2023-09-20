@@ -1,13 +1,26 @@
 import axios from "../../config/axios";
 import {useToast} from 'vue-toastification';
-import Loading from 'vue-loading-overlay';
+import postDetail from "@/views/post-details/post-detail.vue";
+import cvDetail from "@/views/cv-detail/cv-detail.vue";
+import { Modal } from "usemodal-vue3";
+
+
 const toast = useToast();
 
 export default {
     name: "my-apply",
+    components: {        
+        postDetail,
+        Modal,
+        cvDetail
+    },
     data(){
         return{
-            listApplyPost: []
+            listApplyPost: [],
+            isVisibleViewPost: null,
+            isVisibleViewPost: false,
+            isVisibleViewCv: false,
+            uuid: null,
         }
     },
     mounted(){
@@ -34,6 +47,21 @@ export default {
                     this.getData();
                 }
             })
-        }
+        },
+        closeViewPost() {
+            this.isVisibleViewPost = false;
+        },
+      
+        openPostDetail(idView) {
+            this.isVisibleViewPost = true;
+            this.idView = idView;
+        },
+        openCv(uuid) {
+            this.isVisibleViewCv = true;
+            this.uuid = uuid;
+        },
+        closeViewCv() {
+            this.isVisibleViewCv = false;
+        },
     }
 }

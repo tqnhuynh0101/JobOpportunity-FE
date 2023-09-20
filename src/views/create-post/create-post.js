@@ -75,6 +75,7 @@ export default {
       address: null,
       isVisibleConfirmSave: false,
       isLoading: false,
+      expiredDate: null,
     };
   },
   methods: {
@@ -108,8 +109,8 @@ export default {
         }
         this.skillSelect = null;
         this.newSkill = null;
-        this.isLoading = false;
       }
+      this.isLoading = false;
     },
     addNewDataSkill() {
       this.isLoading = true;
@@ -125,9 +126,9 @@ export default {
         } else {
           toast.error("Kỹ năng đã tồn tại!");
         }
-        this.newSkill = null;
-        this.isLoading = false;
+        this.newSkill = null;        
       }
+      this.isLoading = false;
       
     },
     deleteSkill(index) {
@@ -177,109 +178,103 @@ export default {
           this.isLoading = false;
         });
     },
-    confirmSave() {
+    save() {
       if(this.title.length <3){
         this.messageTel = "Vui lòng không để trống trường này và giá trị phải trên 3 kí tự !"
+        toast.warning("Vui lòng không để trống trường này và giá trị phải trên 3 kí tự !")
         return;
       }
       if(this.content.length < 3){
         this.messageContent = "Vui lòng nội dung trên 3 kí tự và không được để trống trường này !"
+        toast.warning("Vui lòng nội dung trên 3 kí tự và không được để trống trường này !")
         return;
       }
       if(!this.validateNumber(quantity)){
-          this.messageQuantity = "Vui lòng nhập kiểu số vào trường này !"
+          this.messageQuantity = "Vui lòng nhập kiểu số vào trường này!"
+          toast.warning("Vui lòng nhập kiểu số vào trường này!")
           return;
       }
       if(!this.validateNumber(experience)){
-        this.messageExperience = "Vui lòng nhập kiểu số cho trường  này !"
+        this.messageExperience = "Vui lòng nhập kiểu số cho trường này !"
+        toast.warning("Vui lòng nhập kiểu số cho trường này !")
         return;
       }
       if(!this.validateNumber(ageMax)){
-        this.messageMaxAge = "Vui lòng nhập kiểu số cho trường  này !"
+        this.messageMaxAge = "Vui lòng nhập kiểu số cho trường này !"
+        toast.warning("Vui lòng nhập kiểu số cho trường này !")
         return;
       }
       if(!this.validateNumber(ageMin)){
-        this.messageMinAge = "Vui lòng nhập kiểu số cho trường  này !"
+        this.messageMinAge = "Vui lòng nhập kiểu số cho trường này !"
+        toast.warning("Vui lòng nhập kiểu số cho trường này !")
         return;
       }
       if(this.ageMax <= this.ageMin){
         this.messageMaxAge = "Tuổi lớn nhất phải lớn hơn tuổi nhỏ nhất. Vui lòng nhập lại !"
+        toast.warning("Tuổi lớn nhất phải lớn hơn tuổi nhỏ nhất. Vui lòng nhập lại !")
         return;
       }
       if (this.position.length < 3){
         this.messagePosition = "Vui lòng nhập nội dung trường này trên 3 kí tự !"
+        toast.warning("Vui lòng nhập nội dung trường này trên 3 kí tự !")
         return;
       }
       if (this.requirements.length < 3){
         this.messageRequirements = "Vui lòng nhập nội dung trường này trên 3 kí tự !"
+        toast.warning("Vui lòng nhập nội dung trường này trên 3 kí tự ! ")
         return;
       }
       if(this.benafit.length < 3){
         this.messageBenafit = "Vui lòng nhập nội dung trường này trên 3 kí tự !"
+        toast.warning("Vui lòng nhập nội dung trường này trên 3 kí tự !")
         return
       }
       if(this.duty.length < 3){
         this.messageDuty = "Vui lòng nhập nội dung trường này trên 3 kí tự !"
+        toast.warning("Vui lòng nhập nội dung trường này trên 3 kí tự !")
         return
       }
-      if(!this.validateNumber(salaryMax)){
-        this.messageSalaryMax = "Vui lòng nhập giá trị số cho trường  này !"
+      if(!this.validateNumber(salaMax)){
+        this.messageSalaryMax = "Vui lòng nhập giá trị số cho trường này !"
+        toast.warning("Vui lòng nhập giá trị số cho trường này !")
         return;
       }
-      if(!this.validateNumber(salaryMin)){
-        this.messageSalaryMin = "Vui lòng nhập giá trị số cho trường  này !"
+      if(!this.validateNumber(salaMin)){
+        this.messageSalaryMin = " Vui lòng nhập giá trị số cho trường này!"
+        toast.warning("Vui lòng nhập giá trị số cho trường này")
         return;
       }
-      if(this.salaryMax <= this.salaryMin){
-        this.messageSalaryMax = "Tuổi lớn nhất phải lớn hơn tuổi nhỏ nhất. Vui lòng nhập lại !"
-        return;
+      // if(this.salaryMax <= this.salaryMin){
+      //   console.log(this.salaryMax)
+      //   console.log(this.salaryMin)
+
+      //   this.messageSalaryMax = "Lương tối đa phải lớn hơn lương tối thiểu. Vui lòng nhập lại !"
+      //   toast.warning("Lương tối đa phải lớn hơn lương tối thiểu. Vui lòng nhập lại !")
+      //   return;
+      // }
+      if(this.salary == "false"){
+        this.salaryMax = 0;
+        this.salaryMin = 0;
       }
       if(this.company.length < 3){
         this.messageCompany = "Vui lòng nhập nội dung trường này trên 3 kí tự !"
+        toast.warning("Vui lòng nhập nội dung trường này trên 3 kí tự !")
         return
       }
       if (!this.ValidateEmail()) {
         this.messageEmail = "Vui lòng nhập đúng định dạng của email!";
+        toast.warning("Vui lòng nhập đúng định dạng của email!")
         return;
       }
       if (!this.ValidateTel()) {
         this.messageTel = "Vui lòng nhập đúng định dạng của phone!";
+        toast.warning("Vui lòng nhập đúng định dạng của phone!")
         return;
       }
-      if(this.salary =='true') {
-        this.salaryMax = 0;
-        this.salaryMin = 0;
-      }
-        axios.post("post/create",
-        {
-            "title": this.title,
-            "content": this.content,
-            "quantity" : this.quantity,
-            "ageMax": this.ageMax,
-            "ageMin": this.ageMin,
-            "gender":this.gender,
-            "experience":this.experience,
-            "type":this.type,
-            "format":this.format,
-            "position":this.position,
-            "requirements":this.requirements,
-            "benafit":this.benafit,
-            "duty":this.duty,
-            "salary":this.salary,
-            "salaryMin":this.salaryMin,
-            "salaryMax":this.salaryMax,
-            "unit":this.unit,
-            "company":this.company,
-            "tel":this.tel,
-            "email":this.email
-        })
-        .then((response)=>{
-          if(response.data.status == "error"){
-            this.message = response.data.message;
-          }else if(response.data.status == "success"){
-            this.message = response.data.message;
-          }
-        })
+      // if(this.salary =='true') {
+      //   this.salaryMax = 0;
+      //   this.salaryMin = 0;
+      // }
       const formData = new FormData();
       formData.append('file', this.image);
       formData.append('post', JSON.stringify({
@@ -308,6 +303,7 @@ export default {
         "districtId": this.selectedDistrict,
         "wardId": this.selectedWard,
         "address": this.address,
+        "expiredDate": this.convertToYYYYMMDD(this.expiredDate)
       }));
       this.isLoading = true;
       axios.post('post/create', formData, {
@@ -355,16 +351,16 @@ export default {
     closeConfirm() {
       this.isVisibleConfirmSave = false;
     },
-    
+
       ValidateTel() {
         var regix = /^0([3|5|7|8|9])([0-9]){8}$/;
-    
+
         if (regix.test(this.tel)) {
           return true;
         }
         return false;
       },
-    
+
       validateNumber(result) {
         if (isNaN(result)) {
           return true;
@@ -372,8 +368,8 @@ export default {
           return false;
         }
       },
-    
-      // đang bị bug ngay chỗ button này 
+
+      // đang bị bug ngay chỗ button này
       checkButton() {
         if (
           this.title.length >= 3 &&
@@ -399,8 +395,15 @@ export default {
         } else {
           this.isValid = false;
         }
+      },
+      convertToYYYYMMDD(inputString) {
+        // Xóa tất cả các dấu gạch ngang khỏi chuỗi
+        const cleanedString = inputString.replace(/-/g, '');
+      
+        return cleanedString;
       }
-       
+      
+
   },
   watch: {
     selectedProvince(newValue, oldValue) {
@@ -422,7 +425,7 @@ export default {
           }
           this.checkButton();
         },
-      
+
         content(newValue, oldValue){
           if(newValue.length == 0){
             this.messageContent = "Vui lòng không để trống trường này !"
@@ -433,7 +436,7 @@ export default {
           }
           this.checkButton();
         },
-      
+
         quantity(newValue, oldValue){
           if(newValue.length == 0){
             this.messageQuantity = "Vui lòng không để trống trường này !"
@@ -443,7 +446,7 @@ export default {
             this.messageQuantity = ""
           this.checkButton();
         },
-      
+
         experience(newValue, oldValue){
           if(newValue.length == 0){
             this.messageExperience = "Vui lòng không để trống trường này !"
@@ -454,7 +457,7 @@ export default {
           }
           this.checkButton();
         },
-      
+
         ageMax(newValue, oldValue){
           if(newValue.length == 0){
             this.messageMaxAge = "Vui lòng không để trống trường này !"
@@ -469,7 +472,7 @@ export default {
           }
           this.checkButton();
         },
-      
+
         ageMin(newValue, oldValue){
           if(newValue.length == 0){
             this.messageMinAge = "Vui lòng không để trống trường này !"
@@ -482,7 +485,7 @@ export default {
           }
           this.checkButton();
         },
-      
+
         requirements(newValue, oldValue){
           if(newValue.length == 0){
             this.messageRequirements = "Vui lòng không để trống trường này !"
@@ -493,7 +496,7 @@ export default {
           }
           this.checkButton();
         },
-      
+
         position(newValue, oldValue){
           if(newValue.length == 0){
             this.messagePosition = "Vui lòng không để trống trường này !"
@@ -504,7 +507,7 @@ export default {
           }
           this.checkButton();
         },
-      
+
         benafit(newValue, oldValue){
           if(newValue.length == 0){
             this.messageBenafit = "Vui lòng không để trống trường này !"
@@ -515,7 +518,7 @@ export default {
           }
           this.checkButton();
         },
-      
+
         duty(newValue, oldValue){
           if(newValue.length == 0){
             this.messageDuty = "Vui lòng không để trống trường này !"
@@ -526,7 +529,7 @@ export default {
           }
           this.checkButton();
         },
-      
+
         salary(newValue, oldValue) {
           if(newValue == 'true') {
             this.salaryCheck = false;
@@ -535,7 +538,7 @@ export default {
           }
           this.checkButton();
         },
-      
+
         salaryMax(newValue, oldValue){
           if(this.salary == 'true') {
             if(newValue.length == 0){
@@ -548,7 +551,7 @@ export default {
             this.checkButton();
           }
         },
-      
+
         salaryMin(newValue, oldValue){
           if(this.salary == 'true') {
             if(newValue.length == 0){
@@ -561,7 +564,7 @@ export default {
             this.checkButton();
           }
         },
-      
+
         company(newValue, oldValue){
           if(newValue.length == 0){
             this.messageCompany = "Vui lòng không để trống !"
@@ -572,7 +575,7 @@ export default {
           }
           this.checkButton();
         },
-      
+
         tel(newValue, oldValue){
           if(newValue.length == 0){
             this.messageTel ="Vui lòng không để trống !"
@@ -583,7 +586,7 @@ export default {
           }
           this.checkButton();
         },
-      
+
         email(newValue, oldValue) {
           if(newValue.length == 0){
             this.messageEmail ="Vui lòng không để trống !"
