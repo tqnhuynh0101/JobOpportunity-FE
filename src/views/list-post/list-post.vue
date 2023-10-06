@@ -11,9 +11,8 @@
         <div class="container-fluid bg-white p-0">
 
             <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
-                <h6 class="section-title text-center text-success text-uppercase">FIND
-                    A JOB</h6>
-                <h1 class="mb-3">Suitable <span class="text-success text-uppercase">For You</span></h1>
+                <h6 class="section-title text-center text-success text-uppercase">TÌM KIẾM CÔNG VIỆC</h6>
+                <h1 class="mb-3">THÍCH HỢP <span class="text-success text-uppercase">CHO BẠN</span></h1>
             </div>
             <!-- Header End -->
 
