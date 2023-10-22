@@ -8,7 +8,7 @@ export default {
     name: "payment",
     components: {
         headerContentAdmin,
-        Loading
+        Loading,
     },
     data() {
         return {
@@ -21,20 +21,40 @@ export default {
             priceByQuantity: 100,
             priceTotal : 0,
             content: "",
+            link: "",
+            paymentId: "",
         }
     },
     methods: {
         payment() {
           this.isLoading = true;
           axios.post("payment/pay?amount="+this.priceTotal+"&content="+ this.content+"&type="+this.type+"&quantity="+this.quantity+"&quantityMonth="+ this.quantityMonth)
-            .then((response) => {
-              if (response.data.status == "error") {
-                toast.error(response.data.message);
-              } else if (response.data.status == "success") {
-                toast.success(response.data.message);
-              }
-              this.isLoading = false;
-            });
+          .then((response) => {
+            if (response.data.status == "success") {
+              console.log(response.data.result.id);
+              return response.data.result.id;
+            }
+          })
+          .then((paymentId)=>{
+            axios.post("paypal/pay", {
+              "price": parseFloat(this.priceTotal),
+              "currency": "USD",
+              "method": "paypal",
+              "intent": "sale",
+              "description":paymentId,
+          })
+              .then((response) => {
+                if (response.data.status == "error") {
+                  toast.error(response.data.message);
+                } else if (response.data.status == "success") {
+                  this.link = response.data.result
+                  // this.$router.push(this.link)
+                  window.location.href = this.link;
+                }
+                this.isLoading = false;
+              });
+
+          })
         },
     },    
     watch: {

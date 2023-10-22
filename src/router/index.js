@@ -23,6 +23,7 @@ import MyApply from "@/views/my-apply/my-apply.vue";
 import ChangeInformation from '@/views/change-information/change-information.vue';
 import AccountManagement from '@/views/account-management/account-management.vue';
 import Payment from '@/views/payment/payment.vue';
+import checkout from '@/views/payment/checkout.vue';
 import CvDetail from '@/views/cv-detail/cv-detail.vue';
 import Income from '@/views/income/income.vue';
 
@@ -182,6 +183,12 @@ const router = createRouter({
                     path: '/management/payment',
                     name: '/Payment',
                     component: Payment,
+                    meta: {isLogin: true, authorities: [Authority.SEEKER]},
+                },
+                {
+                    path: '/management/checkout',
+                    name: '/checkout',
+                    component: checkout,
                     meta: {isLogin: true, authorities: [Authority.SEEKER]},
                 },
                 {

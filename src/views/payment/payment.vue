@@ -86,11 +86,14 @@
                                 </div>
     
                                 <h5>
-                                       Số tiền phải thanh toán: {{ priceTotal }} VNĐ
+                                       Số tiền phải thanh toán: {{ priceTotal }} USD
                                 </h5>
                                 
                                    <!-- <div class="text-center text-danger" v-html="message"></div> -->
-                                <button type="button" class="btn btn-primary py-3 w-100 mb-2" @click="payment()" :disabled="isValid">Đồng ý</button>
+                                <button type="button" class="btn btn-primary py-3 w-100 mb-2" @click="payment()" :disabled="isValid">
+                                    <!-- <a :href=""></a> -->
+                                    Đồng ý
+                                </button>
                                 <RouterLink class="text-dark" to="/"><button type="button" class="py-3 w-100 mb-4 button1 ">Trở Về Trang Chủ</button></RouterLink>
                                 <!-- <p class="text-center mb-0">Đã có tài khoản? <RouterLink to="/login">Đăng nhập</RouterLink> -->
                                 <!-- </p> -->
