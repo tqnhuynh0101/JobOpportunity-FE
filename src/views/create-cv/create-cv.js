@@ -116,25 +116,32 @@ export default {
         },
         addSkill() {
             this.isLoading = true;
-            if(this.skillSelect) {
-                this.skillSelect = this.skillSelect.trim();
-            }
-            if(this.newSkill) {
-                this.newSkill = this.newSkill.trim();
-            }
-            if (this.skillSelect || this.newSkill) {
-                if (!this.listSkill.includes(this.skillSelect)) {
-                    this.listSkill.push(this.skillSelect);
-                } else {
-                    toast.error("Kỹ năng đã tồn tại!");
+            try{
+                if(this.skillSelect) {
+                    this.skillSelect = this.skillSelect.trim();
                 }
-
-                this.skillSelect = null;
-                this.newSkill = null;
+                if(this.newSkill) {
+                    this.newSkill = this.newSkill.trim();
+                }
+                if (this.skillSelect || this.newSkill) {
+                    if (!this.listSkill.includes(this.skillSelect)) {
+                        this.listSkill.push(this.skillSelect);
+                    } else {
+                        toast.error("Kỹ năng đã tồn tại!");
+                    }
+    
+                    this.skillSelect = null;
+                    this.newSkill = null;
+                }else{
+                    toast.error("Thông tin không hợp lệ");
+                }
+            }catch{
+            }finally{
                 this.isLoading = false;
             }
         },
         addNewDataSkill() {
+            
             this.isLoading = true;
             if(this.skillSelect) {
                 this.skillSelect = this.skillSelect.trim();
@@ -157,13 +164,17 @@ export default {
         },
         addInterest() {
             this.isLoading = true;
-            if (this.newInterest) {
+            if (this.newInterest || this.newInterest != null) {
                 if (!this.listInterest.includes(this.newInterest)) {
                     this.listInterest.push(this.newInterest);
                 } else {
                     toast.error("Kỹ năng đã tồn tại!");
                 }
                 this.newInterest = null;
+                this.isLoading = false;
+            }
+            else{
+                toast.error("Thông tin không hợp lệ");
                 this.isLoading = false;
             }
         },
@@ -187,9 +198,13 @@ export default {
             if (compareObjects(certification, this.certifications)) {
                 toast.error("Chứng chỉ này đã tồn tại!")
             } else {
-                this.certifications.push(certification);
-                this.certificationName = null;
-                this.certificationYear = null;
+                if(certification.name == "" || certification.year==""){
+                    toast.error("Không được để trống")
+                }else{
+                    this.certifications.push(certification);
+                    this.certificationName = null;
+                    this.certificationYear = null;
+                }
 
             }
             this.isLoading = false;
@@ -214,8 +229,11 @@ export default {
             if (compareObjects(award, this.awards)) {
                 toast.error("Giải thưởng này đã tồn tại!")
             } else {
-                this.awards.push(award);
-
+                if(award.name == "" || award.year ==""){
+                    toast.error("Không được để trống")
+                }else{
+                    this.awards.push(award);
+                }
             }
             this.isLoading = false;
         },
@@ -242,12 +260,16 @@ export default {
             if (compareObjects(wE, this.workExperience)) {
                 toast.error("Kinh nghiệm làm việc đã tồn tại!")
             } else {
-                this.workExperience.push(wE);
-                this.workExperiencePos = null;
-                this.workExperienceBegin = null;
-                this.workExperienceEnd = null;
-                this.workExperienceName = null;
-                this.workExperienceAchievement = null;
+                if(wE.achievements==""||wE.company==""||wE.from==""||wE.position==""||wE.to==""){
+                    toast.error("Không được để trống")
+                }else{
+                    this.workExperience.push(wE);
+                    this.workExperiencePos = null;
+                    this.workExperienceBegin = null;
+                    this.workExperienceEnd = null;
+                    this.workExperienceName = null;
+                    this.workExperienceAchievement = null;
+                }
             }
             this.isLoading = false;
         },
@@ -274,12 +296,17 @@ export default {
             if (compareObjects(e, this.education)) {
                 toast.error("Học vấn đã tồn tại!")
             } else {
-                this.education.push(e);
-                this.educationSchool = null;
-                this.educationFrom = null;
-                this.educationTo = null;
-                this.educationDegree = "Giỏi";
-                this.educationSpecialized = null;
+                if (e.school == "" || e.degree == "" || e.from == "" || e.to == "" || e.specialized == ""){
+                    toast.error("Không được để trống")
+                }else{
+                    this.education.push(e);
+                    this.educationSchool = null;
+                    this.educationFrom = null;
+                    this.educationTo = null;
+                    this.educationDegree = "Giỏi";
+                    this.educationSpecialized = null;
+                }
+                
             }
             this.isLoading = false;
         },

@@ -6,7 +6,7 @@ import { flat } from "@/assets/fontawesome-free-6.4.0-web/js/v4-shims";
 
 import Loading from 'vue-loading-overlay';
 const toast = useToast();
-
+var regex_number = /^[1-9]$/;
 
 export default {
   components: {
@@ -194,21 +194,42 @@ export default {
           toast.warning("Vui lòng nhập kiểu số vào trường này!")
           return;
       }
+      // if(!this.isBiggerThan(quantity, 0)){
+      //     this.messageQuantity = "Nhập số chưa hợp lệ"
+      //     toast.warning("Nhập số chưa hợp lệ")
+      //     return;
+      // }
+      
       if(!this.validateNumber(experience)){
         this.messageExperience = "Vui lòng nhập kiểu số cho trường này !"
         toast.warning("Vui lòng nhập kiểu số cho trường này !")
         return;
       }
+      // if(!this.isBiggerThan(experience, 0)){
+      //   this.messageQuantity = "Nhập số chưa hợp lệ"
+      //   toast.warning("Nhập số chưa hợp lệ")
+      //   return;
+      // }
       if(!this.validateNumber(ageMax)){
         this.messageMaxAge = "Vui lòng nhập kiểu số cho trường này !"
         toast.warning("Vui lòng nhập kiểu số cho trường này !")
         return;
       }
+      // if(!this.isBiggerThan(ageMax, 0)){
+      //   this.messageQuantity = "Nhập số chưa hợp lệ"
+      //   toast.warning("Nhập số chưa hợp lệ")
+      //   return;
+      // }
       if(!this.validateNumber(ageMin)){
         this.messageMinAge = "Vui lòng nhập kiểu số cho trường này !"
         toast.warning("Vui lòng nhập kiểu số cho trường này !")
         return;
       }
+      // if(!this.isBiggerThan(ageMin, 0)){
+      //   this.messageQuantity = "Nhập số chưa hợp lệ"
+      //   toast.warning("Nhập số chưa hợp lệ")
+      //   return;
+      // }
       if(this.ageMax <= this.ageMin){
         this.messageMaxAge = "Tuổi lớn nhất phải lớn hơn tuổi nhỏ nhất. Vui lòng nhập lại !"
         toast.warning("Tuổi lớn nhất phải lớn hơn tuổi nhỏ nhất. Vui lòng nhập lại !")
@@ -239,9 +260,24 @@ export default {
         toast.warning("Vui lòng nhập giá trị số cho trường này !")
         return;
       }
+      // if(!this.isBiggerThan(salaMax, 0)){
+      //   this.messageQuantity = "Nhập số chưa hợp lệ"
+      //   toast.warning("Nhập số chưa hợp lệ")
+      //   return;
+      // }
       if(!this.validateNumber(salaMin)){
         this.messageSalaryMin = " Vui lòng nhập giá trị số cho trường này!"
         toast.warning("Vui lòng nhập giá trị số cho trường này")
+        return;
+      }
+      // if(!this.isBiggerThan(salaMin, 0)){
+      //   this.messageQuantity = "Nhập số chưa hợp lệ"
+      //   toast.warning("Nhập số chưa hợp lệ")
+      //   return;
+      // }
+      if(this.salaMax <= this.salaMin){
+        this.messageMaxAge = "Lương lớn nhất phải lớn hơn Lương nhỏ nhất. Vui lòng nhập lại !"
+        toast.warning("Lương lớn nhất phải lớn hơn Lương nhỏ nhất. Vui lòng nhập lại !")
         return;
       }
       // if(this.salaryMax <= this.salaryMin){
@@ -360,14 +396,18 @@ export default {
         }
         return false;
       },
-
+      isBiggerThan(input, digit){
+        return input > digit 
+      },
+      
       validateNumber(result) {
-        if (isNaN(result)) {
+        if (isNaN(result) || !this.isBiggerThan(result,0)) {
           return true;
         } else {
           return false;
         }
       },
+      
 
       // đang bị bug ngay chỗ button này
       checkButton() {
@@ -441,7 +481,7 @@ export default {
           if(newValue.length == 0){
             this.messageQuantity = "Vui lòng không để trống trường này !"
           }else if(this.validateNumber(newValue)){
-            this.messageQuantity = "Vui lòng nhập kiểu số vào trường  này !"
+            this.messageQuantity = "Vui lòng nhập số hợp lệ! !"
           }else
             this.messageQuantity = ""
           this.checkButton();
@@ -451,7 +491,7 @@ export default {
           if(newValue.length == 0){
             this.messageExperience = "Vui lòng không để trống trường này !"
           }else if(this.validateNumber(newValue)){
-            this.messageExperience = "Vui lòng nhập kiểu số cho trường  này"
+            this.messageExperience = "Vui lòng nhập số hợp lệ!"
           }else{
             this.messageExperience = ""
           }
@@ -466,7 +506,7 @@ export default {
           }else if(this.ageMax <= this.ageMin){
             this.messageMaxAge = "Tuổi lớn nhất phải lớn hơn tuổi nhỏ nhất. Vui lòng nhập lại "
           } else if(this.validateNumber(newValue)){
-            this.messageMaxAge = "Vui lòng nhập kiểu số cho trường  này"
+            this.messageMaxAge = "Vui lòng nhập số hợp lệ!"
           }else{
             this.messageMaxAge = ""
           }
@@ -478,8 +518,10 @@ export default {
             this.messageMinAge = "Vui lòng không để trống trường này !"
           }else if(newValue <18 || newValue > 60){
             this.messageMinAge = "Độ tuổi nhỏ nhất phải lớn hơn 18 và nhỏ hơn 60!"
+          }else if(this.ageMax <= this.ageMin){
+            this.messageMinAge = "Tuổi lớn nhất phải lớn hơn tuổi nhỏ nhất. Vui lòng nhập lại "
           } else if(this.validateNumber(newValue)){
-            this.messageMinAge = "Vui lòng nhập kiểu số cho trường  này"
+            this.messageMinAge = "Vui lòng nhập số hợp lệ!"
           }else{
             this.messageMinAge = ""
           }
@@ -540,29 +582,30 @@ export default {
         },
 
         salaryMax(newValue, oldValue){
-          if(this.salary == 'true') {
             if(newValue.length == 0){
               this.messageSalaryMax = "Vui lòng không để trống trường này"
+            }else if(newValue <= this.salaryMin){
+              console.log(1111111)
+              this.messageSalaryMax = "Lương lớn nhất phải lớn hơn Lương nhỏ nhất. Vui lòng nhập lại "
             }else if(this.validateNumber(newValue)){
-              this.messageSalaryMax = "Vui lòng nhập giá trị số cho trường  này !"
+              this.messageSalaryMax = "Vui lòng nhập số hợp lệ!"
             }else{
               this.messageSalaryMax = ""
             }
             this.checkButton();
-          }
         },
 
         salaryMin(newValue, oldValue){
-          if(this.salary == 'true') {
             if(newValue.length == 0){
               this.messageSalaryMin = "Vui lòng không để trống trường này"
+            }else if(this.salaryMax <= this.salaryMin){
+              this.messageSalaryMin = "Lương lớn nhất phải lớn hơn Lương nhỏ nhất. Vui lòng nhập lại "
             }else if(this.validateNumber(newValue)){
-              this.messageSalaryMin = "Vui lòng nhập giá trị số cho trường  này !"
+              this.messageSalaryMin = "Vui lòng nhập số hợp lệ!"
             }else{
               this.messageSalaryMin = ""
             }
             this.checkButton();
-          }
         },
 
         company(newValue, oldValue){

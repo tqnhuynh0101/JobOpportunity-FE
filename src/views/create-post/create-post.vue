@@ -212,9 +212,9 @@
                       variant="solo-filled">
                     </v-autocomplete>
 
-                    <button class="btn d-flex flex-row btn-add" @click="addSkill">
+                    <!-- <button class="btn d-flex flex-row btn-add" @click="addSkill">
                       <icon icon="circle-plus" class="icon-add" style="height=20.625, width: 20.503"></icon>
-                    </button>
+                    </button> -->
                   </div>
 
                   <div class="container-fluid" style="max-height: 200px; overflow-y: auto; overflow-x: hidden;">

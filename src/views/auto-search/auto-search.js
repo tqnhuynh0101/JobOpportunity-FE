@@ -33,9 +33,11 @@ export default {
         this.isLoading = false;
       });
     },
+    
     save() {
       this.isLoading = true;
-      axios
+      if(this.salary > 0 ){
+        axios
         .post('auto-search/create', {
           provinceCode: this.selectedProvince,
           flag: this.flag,
@@ -50,6 +52,12 @@ export default {
           }
           this.isLoading = false;
         });
+      
+      }else{
+        toast.error("Nhập mức lương không hợp lệ")
+        
+      }
+      this.isLoading = false;
     },
     getByCurrentUser() {
       this.isLoading = true;

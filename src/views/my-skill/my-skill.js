@@ -65,26 +65,34 @@ export default {
                 })
         },
         add() {
-            this.isLoading = true;
-            if(this.skillSelect) {
-                this.skillSelect = this.skillSelect.trim();
-            }
-            if(this.newSkill) {
-                this.newSkill = this.newSkill.trim();
-            }
-            if(this.skillSelect || this.newSkill) {
-                if (!this.listSkill.includes(this.skillSelect)) {
-                    this.listSkill.push(this.skillSelect);
-                } else {
-                    toast.error("Kỹ năng đã tồn tại!");
+            try{
+                this.isLoading = true;
+                if(this.skillSelect) {
+                    this.skillSelect = this.skillSelect.trim();
                 }
-                this.skillSelect = null;
-                this.newSkill = null;
+                if(this.newSkill) {
+                    this.newSkill = this.newSkill.trim();
+                }
+                if(this.skillSelect || this.newSkill) {
+                    if (!this.listSkill.includes(this.skillSelect)) {
+                        this.listSkill.push(this.skillSelect);
+                    } else {
+                        toast.error("Kỹ năng đã tồn tại!");
+                    }
+                    this.skillSelect = null;
+                    this.newSkill = null;
+                }else{
+                    toast.error("Thêm kĩ năng không hợp lệ")
+                }
+            }catch{
+
+            }finally{
                 this.isLoading = false;
             }
         },
         addNewData() {
-            this.isLoading = true;
+            try{
+                this.isLoading = true;
             if(this.skillSelect) {
                 this.skillSelect = this.skillSelect.trim();
             }
@@ -98,6 +106,12 @@ export default {
                     toast.error("Kỹ năng đã tồn tại!");
                 }
                 this.newSkill = null;
+            }else{
+                toast.error("Thêm kĩ năng không hợp lệ")
+            }
+            }catch{
+
+            }finally{
                 this.isLoading = false;
             }
         },

@@ -74,8 +74,8 @@
                             </svg>
                         </button>
                     </div>
-          <post :listPost="listPost"></post>
-
+                    <post v-if="listPost.length > 0" :listPost="listPost"></post>
+                    <h2 v-else>Không tìm thấy bài đăng</h2>
         </div>
       </div>
     </div>

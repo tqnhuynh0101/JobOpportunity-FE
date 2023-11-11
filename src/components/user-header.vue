@@ -80,7 +80,7 @@
               'text-active': isActiveListPost,
             }"
             to="/user/list-post"
-            ><strong>Danh Sach Bai Viet</strong>
+            ><strong>Danh sách bài viết</strong>
           </router-link>
           <router-link
             class="nav-item nav-link px-3 text-inactive"

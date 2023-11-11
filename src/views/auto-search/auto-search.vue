@@ -25,7 +25,7 @@
             </v-autocomplete>
           </div>
           <div class="all-role mx-2 mb-4">
-            <h5 class="mb-2">Lương mong muốn</h5>
+            <h5 class="mb-2">Lương mong muốn (VNĐ)</h5>
             <input
               type="text"
               class="form-control"
